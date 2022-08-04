@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'course',
-    'video'
+    'video',
+    'review.apps.ReviewConfig',
+    'rest_framework',
 ]
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -88,8 +90,12 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djangotask2',
+        'USER': 'iti',
+        'PASSWORD': '000',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
