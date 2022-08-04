@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'course',
     'video',
     'review.apps.ReviewConfig',
+    'accounts'
     
 ]
 REST_FRAMEWORK = {
