@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'course',
     'video',
     'review.apps.ReviewConfig',
-    'accounts'
+    'accounts',
+    'assignment',
     
 ]
 REST_FRAMEWORK = {
@@ -92,9 +93,9 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 DATABASES =  {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'elearning',
         'USER': 'postgres',
-        'PASSWORD': 'alaa',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
     }
