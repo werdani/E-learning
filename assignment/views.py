@@ -1,5 +1,4 @@
 from django.shortcuts import render
-# from django.http.respons import JsonResponse
 from .models import Assignment
 from rest_framework.decorators import api_view
 from .serializers import AssignmentSerializer
@@ -23,9 +22,8 @@ def Assign_List(request):
         assigment = Assignment.objects.all()
         serializer = AssignmentSerializer(assigment, many=True)
         return Response(serializer.data)
-    elif request.method == 'GET':
+    elif request.method == 'POST':
         serializer = AssignmentSerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
