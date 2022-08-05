@@ -17,7 +17,7 @@ from rest_framework.response import Response
 #     serializer_class = AssignmentSerializer
     # permission_classes = [IsAuthenticated]
 
-@api_view(['GET','POST'])
+@api_view(['GET', 'POST'])
 def Assign_List(request):
     if request.method == 'GET':
         assigment = Assignment.objects.all()
@@ -30,3 +30,25 @@ def Assign_List(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Assignment_List(request, id):
+    try:
+        assigment = Assignment.objects.get(id=id)
+    except Assignment.DoesNotExists:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = AssignmentSerializer(assigment)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = AssignmentSerializer(assigment, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        assigment.delete()
+        return Response(status= status.HTTP_204_NO_CONTENT)
