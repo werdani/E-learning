@@ -28,3 +28,24 @@ def Assign_List(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET','PUT','DELETE'])
+def Assignment_List(request, id):
+    try:
+        assigment = Assignment.objects.get(id=id)
+    except Assignment.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = AssignmentSerializer(assigment)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = AssignmentSerializer(assigment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'DELETE':
+        assigment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
