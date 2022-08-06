@@ -13,11 +13,13 @@ class Course(models.Model):
     course_rate=models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
     #course_category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name="track_courses" )
     course_created_at=models.DateTimeField(auto_now_add=True)
+    student_course_name = models.ManyToManyField(User,related_name="student_course")
+    course_instructor_name = models.ForeignKey(User,on_delete=models.CASCADE,related_name="instructor_course")
+    
     
     def __str__(self):
         return self.course_name
     
-class Student_Course(models.Model):
-    student_course_name = models.ManyToManyField(Course,related_name="student_course")
-    user = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='userCourse')
+
+
+  
