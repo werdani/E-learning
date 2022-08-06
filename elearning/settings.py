@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'course',
     'video',
     'review.apps.ReviewConfig',
-    'rest_framework',
+    'accounts',
+    'assignment',
+    'category.apps.CategoryConfig',
+
 ]
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -91,9 +94,9 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangotask2',
-        'USER': 'iti',
-        'PASSWORD': '000',
+        'NAME': 'iti',
+        'USER': 'postgres',
+        'PASSWORD': '0000',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -172,3 +175,5 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

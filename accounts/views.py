@@ -74,7 +74,8 @@ class CustomLogin(APIView):
             return Response({
                 'token': token.key,
                 'username': user.username,
-                'id': user.id
+                'id': user.id,
+                'is_staff': user.is_staff
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
