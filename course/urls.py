@@ -2,6 +2,8 @@ from django.urls import include, path
 from course import views 
 from course.views import *
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
+
 router = DefaultRouter()
 router.register('guests',views.viewsets_guest)
 urlpatterns = [
@@ -19,6 +21,7 @@ urlpatterns = [
     path('rest/generics/<int:pk>', generics_pk.as_view()),
     path('rest/viewsets/', include(router.urls)),
     path('fbv/findmovie',find_course),
-    path('api-auth',include('rest_framework.urls'))
+    path('api-auth',include('rest_framework.urls')),
+    path('api-token-auth',obtain_auth_token),
 ]
 

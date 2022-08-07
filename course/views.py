@@ -7,6 +7,8 @@ from rest_framework import status,filters
 from rest_framework.response import Response
 from rest_framework.views import APIView 
 from rest_framework import generics,mixins,viewsets
+from rest_framework.authentication import BasicAuthentication,TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 def no_rest_no_model(request):
     courses=[
@@ -22,7 +24,7 @@ def no_rest_no_model(request):
         },
              ]
     return JsonResponse (courses,safe=False)
-
+#################################################################################
 
 def no_rest_from_model(request):
     data = Course.objects.all()
@@ -30,6 +32,7 @@ def no_rest_from_model(request):
         'courses':list(data.values('course_name','course_description'))
     }
     return JsonResponse(response)
+#################################################################################
 
 @api_view(['GET','POST'])
 def FBV_List(request):
@@ -63,7 +66,7 @@ def FBV_pk(request,pk):
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-################################################
+#################################################################################
 class CBV_List(APIView):
     
     def get(self,request):
@@ -105,7 +108,8 @@ class CBV_pk(APIView):
         course = self.get_object(pk)    
         course.dalete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-         
+#################################################################################
+      
 class mixins_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
@@ -124,20 +128,24 @@ class mixins_pk(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.Destroy
         return self.update(request)
     def delete(self,request,pk):
         return self.destroy(request)
-     
+#################################################################################
+
 class generics_list(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated] 
     
 class generics_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
-    
+#################################################################################
+
 class viewsets_guest(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
     
-    
+#################################################################################    
 @api_view(['GET'])
 def find_course(request):
     courses  =Course.objects.filter(
