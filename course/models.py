@@ -25,6 +25,7 @@ class Course(models.Model):
         return self.course_name
 
 
+
 @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 def TokenCreate(sender,instance,created,**kwargs):
     if created:
