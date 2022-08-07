@@ -23,5 +23,7 @@ urlpatterns = [
     path('fbv/findmovie',find_course),
     path('api-auth',include('rest_framework.urls')),
     path('api-token-auth',obtain_auth_token),
+    #path('course/generics/',views.Course_list.as_view()),
+    path('course/generics/<int:pk>',views.Course_pk.as_view()),
 ]
 

@@ -18,11 +18,12 @@ class Course(models.Model):
     #course_category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name="track_courses" )
     course_created_at = models.DateTimeField(auto_now_add=True)
     student_course_name = models.ManyToManyField(User, related_name="student_course",null=True)
-    student_course_instructor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="instructor_course",null=True)
+    course_instructor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="instructor_course",null=True)
     def get_enroll_url(self):
         return reverse('student_enroll_course',args=[self.pk])
     def __str__(self):
         return self.course_name
+
 
 
 

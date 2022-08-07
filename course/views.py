@@ -9,9 +9,8 @@ from rest_framework.views import APIView
 from rest_framework import generics,mixins,viewsets
 from rest_framework.authentication import BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from .permissions import IstheUser
 # Create your views here.
-
 
 def no_rest_no_model(request):
     courses = [
@@ -151,17 +150,19 @@ class mixins_pk(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destr
 class generics_list(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
-    # authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated] 
     
 class generics_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
+    authentication_classes = [TokenAuthentication]
 #################################################################################
 
 class viewsets_guest(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
+    authentication_classes = [TokenAuthentication]
     
 #################################################################################    
 
@@ -173,3 +174,9 @@ def find_course(request):
     )
     serializer = CourseSerializer(courses, many=True)
     return Response(serializer.data)
+
+
+class Course_pk(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IstheUser]
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
