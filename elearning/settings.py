@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'review.apps.ReviewConfig',
     'accounts',
     'assignment',
-    
+    'category.apps.CategoryConfig',
+
 ]
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES =  {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'elearning',
@@ -100,7 +101,6 @@ DATABASES =  {
         'PORT': '5432',
     }
 }
-
 
 
 # Password validation
@@ -175,5 +175,5 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
-MEDIA_URL='/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
