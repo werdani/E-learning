@@ -35,6 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             password=validated_data['password'],
             email=validated_data['email'],
+            is_staff=validated_data['is_staff']
         )
         return user
 
@@ -49,7 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         # Tuple of serialized model fields (see link [2])
-        fields = ("username", "password", "email")
+        fields = ("username", "password", "email","is_staff")
 
 
 class LoginSerialiser(serializers.Serializer):
