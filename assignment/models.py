@@ -6,7 +6,7 @@ class Assignment(models.Model):
     grades = models.FloatField()
     upload_assign = models.FileField(upload_to=None, max_length=254)
     assignment_student = models.ManyToManyField(User,related_name = 'student')
-    assignment_video = models.ManyToManyField(Video,related_name = 'video')
+    assignment_video = models.ForeignKey(Video,related_name = 'video',on_delete=models.CASCADE)
 
     # def __str__(self):
     #     return self.username
