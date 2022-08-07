@@ -38,11 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'course',
     'video',
     'review.apps.ReviewConfig',
-    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES':
+    # ['rest_framework.authentication.BasicAuthentication'],
+    # 'DEFAULT_PERMISSION_CLASSES':
+    # ['rest_framework.permissions.IsAuthenticated'],
+    
+    'DEFAULT_AUTHENTICATION_CLASSES':
+    ['rest_framework.authentication.TokenAuthentication'],
+}
+# AllowAny \\ IsAuthenticated \\ IsAdminuser \\ IsAuthenticatedReadOnly
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
