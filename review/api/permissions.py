@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class IstheUser(permissions.BasePermission):
-    def has_permission(self, request,  obj):
+    def has_permission(self, request, obj):
         print()
         return request.user and request.user.is_authenticated
 
