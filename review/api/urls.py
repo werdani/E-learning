@@ -4,8 +4,8 @@ from review.api.views import ReviewAPIListView, SingleReviewDetailView
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path("index", ReviewAPIListView.as_view()),
-    path("<int:id>", SingleReviewDetailView.as_view()),
+    path("index/", ReviewAPIListView.as_view()),
+    path("index/<int:id>", SingleReviewDetailView.as_view()),
     
     # rest auth url -- to give option logout
     path('api-auth', include('rest_framework.urls')),

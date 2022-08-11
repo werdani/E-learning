@@ -1,12 +1,5 @@
 from rest_framework import serializers
-from review.models import Course, Review
-
-
-class CourseSerilizer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = "__all__"
-
+from review.models import Review
 
 class ReviewSerlizer(serializers.ModelSerializer):
     class Meta:

@@ -12,7 +12,6 @@ from .permissions import IstheUser
 class ReviewAPIListView(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerlizer
-    
     authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
     
@@ -25,7 +24,6 @@ class SingleReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReviewSerlizer
     queryset = Review.objects.all()
     lookup_url_kwarg = 'id'
-    
     authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
 

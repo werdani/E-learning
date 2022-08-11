@@ -23,11 +23,3 @@ class Course(models.Model):
         return reverse('student_enroll_course',args=[self.pk])
     def __str__(self):
         return self.course_name
-
-
-
-
-@receiver(post_save,sender=settings.AUTH_USER_MODEL)
-def TokenCreate(sender,instance,created,**kwargs):
-    if created:
-        Token.objects.create(user=instance)  
