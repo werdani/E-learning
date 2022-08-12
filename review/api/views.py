@@ -13,7 +13,6 @@ class ReviewAPIListView(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerlizer
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
     
 # -------------------update single review--delete review------------------------
 # Retrieve---Show
@@ -25,6 +24,11 @@ class SingleReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     lookup_url_kwarg = 'id'
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
 
-
+# -----------
+class CourseReview(generics.ListCreateAPIView):
+    serializer_class = ReviewSerlizer
+    def get_queryset(self):
+        course_id= self.kwargs['course_id']
+        return Review.objects.filter(course_id=course_id)
+        # return Review.objects.filter(course=course)

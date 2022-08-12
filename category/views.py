@@ -10,7 +10,6 @@ from rest_framework import status
 
 @api_view(['GET', 'POST'])
 def Category_List(request):
-
     # GET Method
     if request.method == 'GET':
         try:
