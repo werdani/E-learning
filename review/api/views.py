@@ -25,8 +25,8 @@ class SingleReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'id'
     authentication_classes = [TokenAuthentication]
 
-# -----------
-class CourseReview(generics.ListCreateAPIView):
+# ------------------list review for each course-------------------
+class CourseReview(generics.ListAPIView):
     serializer_class = ReviewSerlizer
     def get_queryset(self):
         course_id= self.kwargs['course_id']
