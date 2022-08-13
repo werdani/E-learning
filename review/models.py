@@ -13,7 +13,7 @@ class Review(models.Model):
     rate = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     
     def __str__(self):
