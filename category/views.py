@@ -2,14 +2,18 @@ from django.http import Http404
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from .models import Category
+from .permissions import IstheUser, IsInstractor
 from .serializers import CategorySerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics,mixins,viewsets
+from rest_framework.authentication import BasicAuthentication,TokenAuthentication
 # Category Function Based View
 
 
 @api_view(['GET', 'POST'])
 def Category_List(request):
+
     # GET Method
     if request.method == 'GET':
         try:
@@ -52,3 +56,17 @@ def Category_pk(request, pk):
     if request.method == 'DELETE':
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class generics_category(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class= CategorySerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsInstractor, IstheUser]  
+    
+    
+class generics_cat_pk(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class= CategorySerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsInstractor, IstheUser] 

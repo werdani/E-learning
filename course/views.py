@@ -1,7 +1,9 @@
 from django.http import Http404
 from django.http.response import JsonResponse
-from .serializers import CourseSerializer
+from .serializers import CourseSerializer,Course_all_Serializer
 from .models import *
+from .permissions import IstheUser, IsInstractor
+from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework import status, filters
 from rest_framework.response import Response
@@ -9,7 +11,11 @@ from rest_framework.views import APIView
 from rest_framework import generics,mixins,viewsets
 from rest_framework.authentication import BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IstheUser
+from category.models import Category
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,get_object_or_404
+from .helper import send_forget_password_mail
+#from .permissions import IstheUser
 # Create your views here.
 
 def no_rest_no_model(request):
@@ -92,7 +98,7 @@ class CBV_List(APIView):
             serializer.data,
             status=status.HTTP_400_BAD_REQUEST
         )
-
+        
 
 class CBV_pk(APIView):
     def get_object(self, pk):
@@ -149,20 +155,40 @@ class mixins_pk(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destr
 
 class generics_list(generics.ListCreateAPIView):
     queryset = Course.objects.all()
-    serializer_class= CourseSerializer
+    serializer_class= Course_all_Serializer
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated] 
+    permission_classes = [IsInstractor, IstheUser] 
+    
     
 class generics_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
+    serializer_class= Course_all_Serializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsInstractor]
+    
+class upload_course(generics.ListCreateAPIView):
+    queryset = Course.objects.all()
     serializer_class= CourseSerializer
     authentication_classes = [TokenAuthentication]
+    permission_classes = [IsInstractor]
+    
+    
+class generics_userlist(generics.ListAPIView):
+    #queryset = Course.objects.all()
+    serializer_class= CourseSerializer
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(pk=user_id)
+        return Course.objects.filter(user=user)
+    #authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]     
 #################################################################################
 
 class viewsets_guest(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class= CourseSerializer
-    authentication_classes = [TokenAuthentication]
+    #authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated] 
     
 #################################################################################    
 
@@ -177,6 +203,29 @@ def find_course(request):
 
 
 class Course_pk(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IstheUser]
+    #permission_classes = [IstheUser]
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    
+    
+# class CategoryList(generics.ListCreateAPIView):
+#     queryset = Category.objects.all()
+#     serializer_class= Categoryerializer   
+
+
+    
+@login_required
+def Enroll(request,id):
+    course=get_object_or_404(Course,pk=id)
+    if course.user.filter(id=request.user.id).exists():
+        course.user.remove(request.user)
+        message=f'you unsubscibe {course.course_name} in our website'
+    else:
+        course.user.add(request.user)
+        message=f'you subscibe {course.course_name} in our website'
+        
+    try:
+        send_forget_password_mail(request.user.email, message)
+    except Exception:
+        pass
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])  
