@@ -7,6 +7,9 @@ from rest_framework.response import Response
 
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
+from .permissions import IstheUser,IsInstractor
+from rest_framework.authentication import TokenAuthentication
+
 # Create your views here.
 # from django_filters.rest_framework import DjangoFilterBackend
 # from rest_framework.permissions import IsAuthenticated
@@ -71,6 +74,8 @@ class Assignments_List(APIView):
 class Uploade_assignment(CreateAPIView):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
+    permission_classes = [IstheUser]
+    authentication_classes = [TokenAuthentication, ]
     
 
 

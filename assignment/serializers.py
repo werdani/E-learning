@@ -5,7 +5,6 @@ from .models import Assignment
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
-        fields = '__all__'
-
+        fields = ['id','grades','upload_assign','assignment_video']
 
 
