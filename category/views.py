@@ -3,11 +3,11 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from .models import Category
 from .permissions import IstheUser, IsInstractor
-from .serializers import CategorySerializer
+from .serializers import AllCategorySerializer, CategorySerializer
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import generics,mixins,viewsets
-from rest_framework.authentication import BasicAuthentication,TokenAuthentication
+from rest_framework import generics, mixins, viewsets
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 # Category Function Based View
 
 
@@ -60,13 +60,20 @@ def Category_pk(request, pk):
 
 class generics_category(generics.ListCreateAPIView):
     queryset = Category.objects.all()
-    serializer_class= CategorySerializer
+    serializer_class = AllCategorySerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsInstractor, IstheUser]  
-    
-    
+    permission_classes = [IsInstractor, IstheUser]
+
+
 class generics_cat_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
-    serializer_class= CategorySerializer
+    serializer_class = AllCategorySerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsInstractor, IstheUser] 
+    permission_classes = [IsInstractor, IstheUser]
+
+
+class generics_allcategory(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsInstractor]
