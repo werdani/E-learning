@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework import status, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework import generics, mixins, viewsets
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -261,4 +262,30 @@ class enrollCBV(APIView, ):
             message = f'you ernrolled {course.course_name} in our website'
         return Response({'message': message}, status=status.HTTP_200_OK)
 
-# class courses ()
+
+class studentCourses(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    serializer_class = Course_all_Serializer
+
+    def get_queryset(self):
+        return Course.objects.filter(student=self.request.user)
+
+
+class instructorCourses(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    serializer_class = Course_all_Serializer
+
+    def get_queryset(self):
+        return Course.objects.filter(course_instructor=self.request.user)
+
+    # def get(self, request, id):
+    #     course = self.get_object(id)
+    #     if course.student.filter(id=request.user.id).exists():
+    #         course.student.remove(request.user)
+    #         message = f'you unenrolled {course.course_name} in our website'
+    #     else:
+    #         course.student.add(request.user)
+    #         message = f'you ernrolled {course.course_name} in our website'
+    #     return Response({'message': message}, status=status.HTTP_200_OK)

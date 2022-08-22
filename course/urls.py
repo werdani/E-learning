@@ -28,5 +28,7 @@ urlpatterns = [
     #path('rest/category/', views.CategoryList.as_view()),
     path('rest/usercourses/<int:user_pk>', views.generics_userlist.as_view()),
     path('enroll/<int:id>', views.enrollCBV.as_view(), name='enroll'),
-    path('upload_course/', upload_course.as_view())
+    path('upload_course/', upload_course.as_view()),
+    path('studentcourses/', views.studentCourses.as_view()),
+    path('instructorcourses/', views.instructorCourses.as_view()),
 ]

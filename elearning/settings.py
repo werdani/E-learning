@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
     # ['rest_framework.authentication.BasicAuthentication'],
     # 'DEFAULT_PERMISSION_CLASSES':
     # ['rest_framework.permissions.IsAuthenticated'],
-    
+
     # 'DEFAULT_AUTHENTICATION_CLASSES':
     # ['rest_framework.authentication.TokenAuthentication'],
 }
@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pro_django',
+        'NAME': 'elearning',
         'USER': 'postgres',
-        'PASSWORD': 'root',
+        'PASSWORD': '0000',
         'HOST': 'localhost',
         'PORT': '5432',
     }
