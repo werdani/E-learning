@@ -43,10 +43,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-    def to_representation(self, instance):
-        representation = super(
-            UserSerializer, self).to_representation(instance)
-        representation['course_instructor'] = Course_all_Serializer(
-            instance.course_instructor).data
-        print(representation)
-        return representation
+    # def to_representation(self, instance):
+    #     representation = super(
+    #         UserSerializer, self).to_representation(instance)
+    #     representation['course_instructor'] = Course_all_Serializer(
+    #         instance.course_instructor).data
+    #     print(representation)
+    #     return representation

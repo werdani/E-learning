@@ -13,6 +13,8 @@ from rest_framework import generics, mixins, viewsets
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from category.models import Category
+from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from .helper import send_forget_password_mail
