@@ -40,21 +40,25 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'accounts',
+    'assignment',
+    'category',
     'course',
     'video',
     'review.apps.ReviewConfig',
-    'accounts',
-    'assignment',
-    'category.apps.CategoryConfig',
-
 ]
+
 REST_FRAMEWORK = {
-    #  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'DEFAULT_AUTHENTICATION_CLASSES':
-    # ['rest_framework.authentication.TokenAuthentication'],
+    # ['rest_framework.authentication.BasicAuthentication'],
     # 'DEFAULT_PERMISSION_CLASSES':
     # ['rest_framework.permissions.IsAuthenticated'],
+    
+    # 'DEFAULT_AUTHENTICATION_CLASSES':
+    # ['rest_framework.authentication.TokenAuthentication'],
 }
+# AllowAny \\ IsAuthenticated \\ IsAdminuser \\ IsAuthenticatedReadOnly
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -94,14 +98,13 @@ WSGI_APPLICATION = 'elearning.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'elerning',
+        'NAME': 'alaa',
         'USER': 'postgres',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
