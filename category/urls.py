@@ -6,4 +6,8 @@ urlpatterns = [
     path('generics/category/', views.generics_category.as_view()),
     path('generics/category/<int:pk>', views.generics_cat_pk.as_view()),
     path('generics/allcategory', views.generics_allcategory.as_view())
+<<<<<<< HEAD
 ]
+=======
+]
+>>>>>>> cce6dda622ac49ffca6c75bd728a20c71d57f42d

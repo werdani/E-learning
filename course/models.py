@@ -7,6 +7,8 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 from category.models import Category
+
+
 # Create your models here.
 
 # class Category (models.Model):
@@ -16,11 +18,12 @@ from category.models import Category
 
 class Course(models.Model):
     course_name = models.CharField(max_length=100)
-    #course_instructor = models.CharField(max_length=100)
+    # course_instructor = models.CharField(max_length=100)
     course_description = models.TextField()
     course_image = models.ImageField(upload_to="courses/images", null=True)
     # course_rate = models.IntegerField(
     #     validators=[MaxValueValidator(5), MinValueValidator(1)],default=1)
+<<<<<<< HEAD
     course_category=models.ForeignKey(Category, on_delete=models.CASCADE, related_name="course_category",null=True )
     course_created_at = models.DateTimeField(auto_now_add=True)
     student = models.ManyToManyField(
@@ -28,12 +31,19 @@ class Course(models.Model):
     course_instructor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="instructor_course",null=True)
     def get_enroll_url(self):
         return reverse('enroll',args=[self.pk])
+=======
+    course_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="course_category", null=True)
+    course_created_at = models.DateTimeField(auto_now_add=True)
+    student = models.ManyToManyField(
+        User, related_name="enroll", null=True, blank=True)
+    course_instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="instructor_course", null=True)
+
+    def get_enroll_url(self):
+        return reverse('enroll', args=[self.pk])
+>>>>>>> cce6dda622ac49ffca6c75bd728a20c71d57f42d
 
     def __str__(self):
         return self.course_name
-
-
-
 
 # @receiver(post_save,sender=settings.AUTH_USER_MODEL)
 # def TokenCreate(sender,instance,created,**kwargs):

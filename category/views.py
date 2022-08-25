@@ -76,4 +76,8 @@ class generics_allcategory(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     authentication_classes = [TokenAuthentication]
+<<<<<<< HEAD
     permission_classes = [IsInstractor]
+=======
+    permission_classes = [IsInstractor]
+>>>>>>> cce6dda622ac49ffca6c75bd728a20c71d57f42d
