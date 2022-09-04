@@ -5,12 +5,9 @@ django-cors-headers==3.10.1
 django-jazzmin==2.5.0
 djangorestframework==3.13.1
 Pillow==9.2.0
-<<<<<<< HEAD
 psycopg2==2.7.7
 pycodestyle==2.8.0
-=======
 psycopg2-binary
->>>>>>> cce6dda622ac49ffca6c75bd728a20c71d57f42d
 pytz==2022.1
 sqlparse==0.4.2
 toml==0.10.2
